@@ -1,0 +1,52 @@
+<table width="100%" height="64" border="0" cellpadding="0" cellspacing="0" class="admin_topbg">
+  <tr>
+    <td width="39%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="44%" height="38" class="admin_txt">
+        	<p class="top_gl">
+			{$Think.lang.top_1}<b>  {$Think.session.username} </b>,{$Think.lang.top_2}！
+			<a href="__ROOT__/index.php" target="_blank" class="qwqt">前台</a>
+			</p>
+			
+        </td>
+        <td width="22%">
+        	<a href="__APP__/Index/logout">
+        		<img src="__PUBLIC__/Admin/images/logout.png"  class="logout" alt="安全退出" width="32" height="32" border="0">
+        	</a>
+        </td>
+        <td>
+        	<font class="lang_yy">语言选择</font>
+        	<a href="?l=zh-cn" class="lang_zh"><img src="__PUBLIC__/Admin/images/china.png" alt="China"/></a>
+        	<a href="?l=en-us" class="lang_en"><img src="__PUBLIC__/Admin/images/England.png" alt="England"/></a>
+        	<a href="?l=ja-jp" class="lang_jp"><img src="__PUBLIC__/Admin/images/japan.png" alt="Japan"/></a>
+        	<a href="?l=en-us" class="lang_us"><img src="__PUBLIC__/Admin/images/United States of America (USA).png" alt="USA"/></a>
+        	<a href="?l=de-de" class="lang_de"><img src="__PUBLIC__/Admin/images/Germany.png" alt="Germany"/></a>
+        	<a href="?l=fr-fr" class="lang_fr"><img src="__PUBLIC__/Admin/images/France.png" alt="France"/></a>
+        	<a href="?l=it-it" class="lang_it"><img src="__PUBLIC__/Admin/images/Italy.png" alt="Italy"/></a>
+        </td>
+        <td width="4%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="19" colspan="3">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<!-- 通过CommonAction传来的值 得到当前用户        从而 防止用户点击叉叉退出时不能存入退出时间 -->
+<input type="hidden" value="{$record_id}" name="record_id" />
+ <!-- 
+ * 如果用户直接点击叉叉，则用window.onunload函数  
+ * 得到用户record_id的值，传过去
+ * 用ajax方法调用logout函数将退出时间存入数据库
+ *
+  -->
+<script type="text/javascript">
+$(window).unload(function(){
+	var record_id = $("input[name=record_id]").val();
+	$.post("__APP__/Index/logout",{'record_id':record_id},function(data){
+		
+	});
+});
+</script>

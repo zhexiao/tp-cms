@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<style type="text/css">
+.upload {
+	background:url(__PUBLIC__/Admin/images/uploads.png) no-repeat center;
+}
+.return {
+	background:url(__PUBLIC__/Admin/images/return.png) no-repeat center;
+}
+.root{
+background:url(__PUBLIC__/Admin/images/root.png) no-repeat center;
+}
+.new_folder{
+background:url(__PUBLIC__/Admin/images/folder_new.png) no-repeat center;
+}
+</style>
+
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">{$Think.lang.left_5_2}</span>
+		</p>
+		
+<table width="100%">
+  <tr>
+    
+    <td valign="top">
+    <!-- 工具栏 表格 -->
+    <table class="toolbar" width="100%">
+    	<tr>
+    		<td width="90%" class="search file_bar">    		  			
+    			<a href="__URL__/index/root/1"><span class="root"></span>根目录</a>
+    			<a href="__URL__/index/up/1"><span class="return"></span>返回上层目录</a>
+    			<a href="#new_folder" class="new_lang_folder"><span class="new_folder"></span>创建新语言目录</a>
+    			<a href="#upload_content" class="file_upload"><span class="upload"></span>上传新语言</a>	
+    		</td>
+      	</tr>
+      </table>
+        <table class="adminlist"  width="100%"  cellpadding="0" cellspacing="0">
+        <thead>
+      		<tr>
+      			<th style="width:20%;" class="admintitle">语言名称</th>
+      			<th style="width:20%" class="admintitle">创建时间</th>
+				<th style="width:20%;" class="admintitle">最后修改时间</th>
+				<th style="width:20%;" class="admintitle">操作</th>
+    		</tr>
+      	</thead>
+      	<!-- 使用Jquery进行删除表单的提交，一定要返回false,不然会执行<a> -->
+      	<form action="__URL__/del" method="post" id="ForDel">
+      	<tbody>     		
+      		<volist name="list" id="files" key="k" >    		
+	      		<tr class="focus_table_tr">			      			  		
+		      		<td class="tbody_td">
+			      		<eq name="files.type" value="dir">
+							<a href="__URL__/index/path/{$files['filename']}/" >{$files['fileimg']} {$files['filename']}</a>
+						<else/>
+							{$files['fileimg']} {$files['filename']}
+						</eq>
+		      		</td>
+		      		<td class="tbody_td">{$files['mtime']|date='Y-m-d H:i:s',###}</td>
+		      		<td class="tbody_td">{$files['ctime']|date='Y-m-d H:i:s',###}</td>
+		      		<td class="tbody_td">
+		      			<!-- 
+		      				文件操作集合
+		      				设置一个rel属性，通过jquery获得其值就是Filename
+		      			 -->
+		      			<a href="#select_lang" 	class="select_language" rel="{$files['filename']}">【选择】</a>						
+						<a href="#delete_file"	class="del_file" rel="{$files['filename']}">【删除】</a>						
+						<!-- 
+		      				-------------------
+		      			 -->					
+					</td>
+	      		</tr>
+      		</volist>   
+      				
+      	</tbody>
+      	</form>    					
+      	</table>
+      </td>        
+	</tr>
+</table>
+
+		<!-- 上传文件 表单 -->
+		<div style='display:none'>
+			<div id='upload_content' style='padding:10px; background:#fff;'>
+				<form action="__URL__/upload" method="post" enctype="multipart/form-data">
+					<div id="input_file" class="cf">					
+						<div class="left">Choose a file to upload:</div>					
+						<input type="file" name="file" size=30>						
+					</div>						
+					<input type="submit" class="login_sub upl" name="sub" value="上传" />	
+					<input type="reset" class="login_sub upl" name="sub" value="重选" />
+				</form>
+			</div>
+		</div>
+		
+
+		
+		<!-- 删除文件 表单 -->
+		<div style='display:none'>
+			<div id='delete_file' style='padding:10px; background:#fff;'>
+				<form action="__URL__/delete_file" method="post" >											
+					确认删除:&nbsp;<input type="text" readonly="readonly" name="del_name"  value="" id="del_name" class="art_form_title rename1"><br/>								
+					<input type="submit" class="login_sub rename_sub" name="sub" value="删除" />	
+					<input type="button" class="login_sub rename_sub"   value="取消" />
+				</form>
+			</div>
+		</div>
+		
+		<!-- 创建新语言目录 表单 -->
+		<div style='display:none'>
+			<div id='new_folder' style='padding:10px; background:#fff;'>
+				<form action="__URL__/new_folder" method="post" >											
+					语言目录名:&nbsp;<input type="text"  name="folder_name"  value=""  class="art_form_title rename1"><br/>								
+					<input type="submit" class="login_sub rename_sub" name="sub" value="确认" />	
+					<input type="reset" class="login_sub rename_sub"   value="重填" />
+				</form>
+			</div>
+		</div>
+		
+		<!-- 选择文件 表单 -->
+		<div style='display:none'>
+			<div id='select_lang' style='padding:10px; background:#fff;'>
+				<a href="" id="select_lang_id"><img src="__PUBLIC__/Admin/images/confirm_yes.png" alt="确认" title="确认"/></a>
+			</div>
+		</div>
+		
+		
+		
+		<!-- ColorBox Js -->
+		<script>
+		
+			//文件上传box
+			$(document).ready(function(){		
+				//执行colorbox
+				$(".file_upload").colorbox({inline:true, width:"450px",opacity:0.5});
+			});
+			
+			
+			
+			//删除文件 box
+			$(document).ready(function(){
+				$(".del_file").colorbox({inline:true, width:"450px",opacity:0.5});
+				$(".del_file").click(function(){
+					var filename = '';
+					filename = $(this).attr('rel');
+					$("#del_name").val(filename);
+				});
+			});
+			
+			//选择语言 box
+			$(document).ready(function(){
+				$(".new_lang_folder").colorbox({inline:true, width:"450px",opacity:0.5});
+				
+			});
+			
+			//选择语言 box
+			$(document).ready(function(){
+				$(".select_language").colorbox({inline:true, width:"450px",opacity:0.5});
+				$(".select_language").click(function(){
+					var filename = '';
+					filename = $(this).attr('rel');
+					$("#select_lang_id").attr("href","?l="+filename);
+					
+				});
+			});
+		
+			// 给每一行加上区别的特效
+			$(".focus_table_tr").hover(
+					function(){
+						$(this).addClass('focus_tr');
+					},
+					function(){
+						$(this).removeClass('focus_tr');
+						}
+					);
+		</script>
+		
+		
+	</div>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

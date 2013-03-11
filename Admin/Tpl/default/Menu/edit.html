@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/jquery.wysiwyg.css"  />
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/editor_desc.js"></script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">菜单编辑</span>
+		</p>
+	</div>
+		
+	
+		<form action="__URL__/update" method="post" id="article_form" name="article_form">
+			<p class="tbody_td website_tr"><span class="website_title">菜单标题:</span>
+				<input type="text" name="title" value="{$mlist.title}" class="art_form_title"/>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">菜单类型:</span>
+				<input type="text" name="menutype" value="{$mlist.menutype}" class="art_form_title"/>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">是否启用:</span>
+				是<input type="radio" value="1" name="published" <eq name="mlist.published" value="1">checked="checked"</eq> />
+				否<input type="radio" value="2" name="published" <eq name="mlist.published" value="2">checked="checked"</eq> />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title art_add_span">菜单描述:</span>
+				<textarea name="description" id="description" class="art_form_textarea">{$mlist['description']}</textarea>
+			</p>
+
+			<input type="hidden" value="{$mlist.id}" name="id"/>
+			<input type="submit" value="更新" name="login" class="login_sub website_sub"/>
+			<input type="reset" value="重置" name="reset" class="login_res"/>			
+		</form>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

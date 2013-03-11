@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<style type="text/css">
+.icon-new {
+background-image:url(__PUBLIC__/Admin/images/icon-new.png);
+}
+.icon-edit {
+background-image:url(__PUBLIC__/Admin/images/icon-edit.png);
+}
+.icon-delete {
+background-image:url(__PUBLIC__/Admin/images/icon-delete.png);
+}
+.icon-help {
+background-image:url(__PUBLIC__/Admin/images/icon-help.png);
+}
+</style>
+
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+			<p class="tbody_td website_tr main_content_t1">
+				<span class="top_bt_span">{$Think.lang.left_2_1}</span>
+			</p>
+		</div>
+		
+
+<table width="100%"> 
+  <tr>
+    
+    <td valign="top">
+    <!-- 工具栏 表格 -->
+    <table class="toolbar" width="100%">
+    	<tr>
+    		<td width="90%" class="search">
+    			
+			  <div id="side-search-holder" >
+				<form id="side-search-form" action="__URL__/index" method="post">
+					<div class="side-search-box" id="search-box">
+						<input type="text" size="30" id="side-search-input" value="搜索标签" name="keyword" title="ID搜索或标题搜索"/>
+					</div>					
+					<button id="go-search" class="side-go-search" type="submit">搜索</button>
+				</form>
+			<div>
+			<!-- 给搜索框添加事件 -->
+			<script type="text/javascript">		
+				//Tooltips 功能
+				$(function(){					
+					$('#side-search-input').poshytip({
+						className: 'tip-darkgray',
+						showOn: 'focus',
+						alignTo: 'target',
+						alignX: 'inner-left',
+						offsetX: 105,
+						offsetY: 10,
+					});		
+				});
+			
+				//切换功能
+				$("#side-search-input").focus(function(){
+					$(this).val('');
+					$(this).parent().removeClass("side-search-box").addClass("click-side-search-box");
+					$("#go-search").removeClass("side-go-search").addClass("click-side-go-search");
+				});
+				$("#side-search-input").blur(function(){
+					$(this).parent().removeClass("click-side-search-box").addClass("side-search-box");
+					$("#go-search").removeClass("click-side-go-search").addClass("side-go-search");
+				});
+			</script>
+			<!-- 给搜索框添加事件 -->
+			
+			<!-- 改变显示状态 -->
+			<form action="__URL__/index" id="change_art_status" method="post" >
+      				<font class="art_change">文章</font>
+      				<select name="change_published" class="art_form_select sele1" onchange="$('#change_art_status').submit();"> 
+      					<option value="0" <php>if($change_pub == 0){echo "selected='selected'";}</php> >全部</option>
+      					<option value="1" <php>if($change_pub == 1){echo "selected='selected'";}</php> >已发布</option>
+      					<option value="2" <php>if($change_pub == 2){echo "selected='selected'";}</php> >未发布</option>
+      				</select>
+      			</form>
+    		</td>
+    		
+      		<td>
+      			<a href="__URL__/add"><span class="icon-new"></span>&nbsp;创建</a>
+      		</td>
+      		<td>
+      			<a href="" onclick="$('#ForDel').submit();return false;"><span class="icon-delete"></span>&nbsp;删除</a>
+      		</td>     	
+      	</tr>
+      </table>
+        <table class="adminlist"  width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <thead>
+      		<tr>
+      			<th style="width:5%;" class="admintitle">选择</th>
+      			<th style="width:5%" class="admintitle">ID</th>
+				<th style="width:25%;" class="admintitle">标题</th>
+				<th style="width:10%" class="admintitle">所属分类</th>
+				<th style="width:10%" class="admintitle">所属单元</th>									
+				<th style="width:10%" class="admintitle">作者</th>
+				<th style="width:15%" class="admintitle">创建日期</th>
+				<th style="width:10%" class="admintitle">文章属性</th>	
+				<th style="width:5%;" class="admintitle">发布</th>
+				
+      		</tr>
+      	</thead>
+      	<form action="__URL__/del" method="post" id="ForDel">
+      	<tbody>     		
+      		<volist name="alist" id="article" key="k">
+	      		<tr class="focus_table_tr">
+		      		<td class="tbody_td">
+		      			<input type="checkbox" name="del_id[]" value="{$article['aid']}" />
+		      		</td>
+		      		<td class="tbody_td">{$article['aid']}</td>
+		      		<td align="center" class="tbody_td">
+		      			<a href="__URL__/edit/id/{$article['aid']}">{$article['atitle']|msubstr=###,0,20}<php>if( get_length($article['atitle']) >= 36 ){echo '&nbsp;······';}</php></a>
+		      		</td>
+		      		<td class="tbody_td">
+		      			<a href="__APP__/Category/edit/id/{$article['cid']}">{$article['ctitle']}</a>
+		      		</td>
+		      		<td  class="tbody_td">
+		      			<a href="__APP__/Section/edit/id/{$article['sid']}">{$article['stitle']}</a>
+		      		</td>		            		
+		      		<td class="tbody_td">
+		      			<a href="__APP__/User/edit/id/{$article['created_by']}">{$article['username']}</a>
+		      		</td>
+		      		<td class="tbody_td">{$article['created']}</td>
+		      		<td class="tbody_td">
+		      			<if condition="$article['aart_attr'] eq 1">
+		      				普通文章
+		      			<elseif condition="$article['aart_attr'] eq 2" />
+		      				<font style="color:blue;">热点文章</font>
+		      			<elseif condition="$article['aart_attr'] eq 3" />
+		      				<font style="color:orange;">置顶文章</font>
+		      			<else/>
+		      				<font style="color:red;">热点置顶文章</font>
+		      			</if>
+		      		</td>
+		      		<td class="tbody_td">
+			      		<eq name="article['apublished']" value="1">
+			      			<img width="16" height="16" border="0" alt="启用" src="__PUBLIC__/Admin/images/p.png"/>
+			      		<else />
+			      			<img width="16" height="16" border="0" alt="禁止" src="__PUBLIC__/Admin/images/x.png"/>
+			      		</eq>
+		      		</td>
+	      		</tr>
+      		</volist>   		
+      	</tbody>
+      	</form> 	      					
+      	</table>
+      </td>        
+	</tr>
+</table>
+	<!-- 给每一行加上区别的特效 -->
+	<script type="text/javascript">
+		$(".focus_table_tr").hover(
+				function(){
+					$(this).addClass('focus_tr');
+				},
+				function(){
+					$(this).removeClass('focus_tr');
+					}
+				);
+	</script>
+	
+		<div class="pagination">
+			<div id="page">
+			每页显示{$pagesize}篇文章&nbsp;|&nbsp;共{$show}
+			</div>
+		</div>		
+	</div>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

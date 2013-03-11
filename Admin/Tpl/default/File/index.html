@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<style type="text/css">
+.upload {
+	background:url(__PUBLIC__/Admin/images/uploads.png) no-repeat center;
+}
+.return {
+	background:url(__PUBLIC__/Admin/images/return.png) no-repeat center;
+}
+.root{
+background:url(__PUBLIC__/Admin/images/root.png) no-repeat center;
+}
+</style>
+
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">{$Think.lang.left_5_1}</span>
+		</p>
+		
+<table width="100%">
+  <tr>
+    
+    <td valign="top">
+    <!-- 工具栏 表格 -->
+    <table class="toolbar" width="100%">
+    	<tr>
+    		<td width="90%" class="search file_bar">    		  			
+    			<a href="__URL__/index/root/1"><span class="root"></span>根目录</a>
+    			<a href="__URL__/index/up/1"><span class="return"></span>返回上层目录</a>
+    			<a href="#upload_content" class="file_upload"><span class="upload"></span>上传到当前目录</a>	
+    		</td>
+      	</tr>
+      </table>
+        <table class="adminlist"  width="100%"  cellpadding="0" cellspacing="0">
+        <thead>
+      		<tr>
+      			<th style="width:20%;" class="admintitle">文件名</th>
+      			<th style="width:10%" class="admintitle">文件大小</th>
+				<th style="width:30%;" class="admintitle">最后修改时间</th>
+				<th style="width:30%;" class="admintitle">操作</th>
+    		</tr>
+      	</thead>
+      	<!-- 使用Jquery进行删除表单的提交，一定要返回false,不然会执行<a> -->
+      	<form action="__URL__/del" method="post" id="ForDel">
+      	<tbody>     		
+      		<volist name="list" id="files" >
+	      		<tr class="focus_table_tr">		      		
+		      		<td class="tbody_td">
+			      		<eq name="files.type" value="dir">
+							<a href="__URL__/index/path/{$files['filename']}/" >{$files['fileimg']} {$files['filename']}</a>
+						<else/>
+							{$files['fileimg']} {$files['filename']}
+						</eq>
+		      		</td>
+		      		<td class="tbody_td"><php>echo number_format($files['size']/1024,2);</php> KB</td>
+		      		<td class="tbody_td">{$files['ctime']|date='Y-m-d H:i:s',###}</td>
+		      		<td class="tbody_td">
+		      			<!-- 
+		      				文件操作集合
+		      				设置一个rel属性，通过jquery获得其值就是Filename
+		      			 -->
+						<a href="#rename" 		class="re_name" rel="{$files['filename']}">【重命名】</a>
+						<a href="#delete_file"	class="del_file" rel="{$files['filename']}">【删除】</a>
+						<a href="#move_file" 	class="mv_file" rel="{$files['pathname']}">【移动】</a>						
+						<!-- 
+		      				-------------------
+		      			 -->					
+					</td>
+	      		</tr>
+      		</volist>   
+      				
+      	</tbody>
+      	</form>    					
+      	</table>
+      </td>        
+	</tr>
+</table>
+
+		<!-- 上传文件 表单 -->
+		<div style='display:none'>
+			<div id='upload_content' style='padding:10px; background:#fff;'>
+				<form action="__URL__/upload" method="post" enctype="multipart/form-data">
+					<div id="input_file" class="cf">					
+						<div class="left">Choose a file to upload:</div>					
+						<input type="file" name="file" size=30>						
+					</div>						
+					<input type="submit" class="login_sub upl" name="sub" value="上传" />	
+					<input type="reset" class="login_sub upl" name="sub" value="重选" />
+				</form>
+			</div>
+		</div>
+		
+		<!-- 重命名文件 表单 -->
+		<div style='display:none'>
+			<div id='rename' style='padding:10px; background:#fff;'>
+				<form action="__URL__/modify_name" method="post" >						
+					旧文件名:<input type="text" readonly="readonly" name="first_name"   value="" id="first_name"  class="art_form_title oldname">
+					新文件名:<input type="text" name="second_name"  value="" id="second_name" class="art_form_title rename1">								
+					<input type="submit" class="login_sub rename_sub" name="sub" value="更新" />	
+					<input type="reset" class="login_sub rename_sub" name="sub" value="重写" />
+				</form>
+			</div>
+		</div>
+		
+		<!-- 删除文件 表单 -->
+		<div style='display:none'>
+			<div id='delete_file' style='padding:10px; background:#fff;'>
+				<form action="__URL__/delete_file" method="post" >											
+					确认删除:&nbsp;<input type="text" readonly="readonly" name="del_name"  value="" id="del_name" class="art_form_title rename1"><br/>								
+					<input type="submit" class="login_sub rename_sub" name="sub" value="删除" />	
+					<input type="button" class="login_sub rename_sub"   value="取消" />
+				</form>
+			</div>
+		</div>
+		
+		<!-- 移动文件 表单 -->
+		<div style='display:none'>
+			<div id='move_file' style='padding:10px; background:#fff;'>
+				<form action="__URL__/move_path" method="post" >											
+					旧文件路径:<input type="text" readonly="readonly" name="old_path"   value="" id="old_path"   class="art_form_title oldpath">
+					新文件路径:<input type="text" name="new_path"  value="" id="new_path" class="art_form_title">								
+					<input type="submit" class="login_sub rename_sub" name="sub" value="更新" />	
+					<input type="reset" class="login_sub rename_sub"   value="重写" />
+				</form>
+			</div>
+		</div>
+		
+		<!-- ColorBox Js -->
+		<script>
+		
+			//文件上传box
+			$(document).ready(function(){		
+				//执行colorbox
+				$(".file_upload").colorbox({inline:true, width:"450px",opacity:0.5});
+			});
+			
+			//重命名box
+			$(document).ready(function(){
+				$(".re_name").colorbox({inline:true, width:"450px",opacity:0.5});
+				$(".re_name").click(function(){
+					var filename = '';
+					filename = $(this).attr('rel');
+					$("#first_name").val(filename);
+				});
+			});
+			
+			//删除文件 box
+			$(document).ready(function(){
+				$(".del_file").colorbox({inline:true, width:"450px",opacity:0.5});
+				$(".del_file").click(function(){
+					var filename = '';
+					filename = $(this).attr('rel');
+					$("#del_name").val(filename);
+				});
+			});
+			
+			//移动文件路径 box
+			$(document).ready(function(){
+				$(".mv_file").colorbox({inline:true, width:"450px",opacity:0.5});
+				$(".mv_file").click(function(){
+					var filename = '';
+					pathname = $(this).attr('rel');
+					$("#old_path").val(pathname);
+				});
+			});
+			
+			
+			// 给每一行加上区别的特效
+			$(".focus_table_tr").hover(
+					function(){
+						$(this).addClass('focus_tr');
+					},
+					function(){
+						$(this).removeClass('focus_tr');
+					}
+			);
+		</script>
+		
+		
+	</div>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/jquery.wysiwyg.css"  />
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/editor_desc.js"></script>
+<script type="text/javascript">
+//cat = array('category["sectionid"]','category["id"]','category["title"]');
+var cat = new Array;
+cat[0]=new Array('-1','-1','选择文章类别');
+<volist name="clist" id="category" key="k">
+	cat[{$k}]=new Array('{$category["sectionid"]}','{$category["id"]}','{$category["title"]}');
+</volist>
+function CatList(){
+	//得到Section对象
+	var secobj=document.article_form.sectionid;
+	//得到cat对象
+	var catobj=document.article_form.catid;
+	//每次改变时记得清空原文本
+	catobj.innerHTML="";
+	var sid=secobj.options[secobj.selectedIndex].value;
+	var j=0;
+	for(var i=0;i<cat.length;i++){				
+		if(cat[i][0] == sid){
+			var opt=new Option();
+			//生成option的值和文本
+			opt.value=cat[i][1];
+			opt.text=cat[i][2];
+			catobj.options[j++]=opt;
+		}	
+	}	
+	//如果选择项中没有值，则使用上面数组默认的选择文章类别项
+	if(catobj.options.length<1){
+		var opt=new Option();
+		opt.value=cat[0][1];
+		opt.text=cat[0][2];
+		catobj.options[0]=opt;
+	}
+}
+</script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">文章添加</span>
+		</p>
+	</div>
+		
+		<form action="__URL__/insert" method="post" name="article_form" >
+			<p class="tbody_td website_tr"><span class="website_title">文章标题:</span>
+				<input type="text" name="title" value="" class="art_form_title" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">文章属性:</span>
+				<input type="radio" name="art_attr" value="1"  checked="checked"/>普通文章
+				<input type="radio" name="art_attr" value="2" style="margin-left:10px;" class="art_radio" />热点文章
+				<input type="radio" name="art_attr" value="3" style="margin-left:10px;" class="art_radio"/>置顶文章
+				<input type="radio" name="art_attr" value="4" style="margin-left:10px;" class="art_radio"/>热点置顶文章
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">发布文章:</span>
+				是<input type="radio" value="1" name="published" checked="checked"/>
+				否<input type="radio" value="2" name="published" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">所属单元:</span>
+				<select name="sectionid" onchange="CatList();" class="art_form_select">
+					<option value="-1">请选择文章单元</option>
+					<volist name="slist" id="section">
+						<option value="{$section['id']}">{$section['title']}</option>
+					</volist>
+				</select>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">所属类别:</span>
+				<select name="catid" class="art_form_select">
+					<option value="-1">请选择文章类别</option>
+				</select>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title art_add_span">文章内容:</span>
+				<textarea name=description id="description" class="art_form_textarea"></textarea>
+			</p>
+			
+			<input type="submit" value="添加" name="login" class="login_sub website_sub"/>
+			<input type="reset" value="重置" name="reset" class="login_res"/>					
+		</form>		
+</div>
+
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?php
+class ArticleViewModel extends ViewModel {
+	public $viewFields=array(
+		//文章表
+		'Article'=>array(
+			'id'=>'aid',
+			'title'=>'atitle',
+			'description',
+			'published'=>'apublished',
+			'sectionid'=>'sid',
+			'art_attr'=>'aart_attr',
+			'catid'=>'cid',
+			'created',
+			'author',
+			'hits',
+		),
+		//单元表
+		'Section'=>array(
+			'title'=>'stitle',
+			'_on'=>'Section.id=Article.sectionid'
+		),
+		//类别表
+		'Category'=>array(
+			'title'=>'ctitle',
+			'_on'=>'Category.id=Article.catid'
+		),
+		//用户表
+		'User'=>array(
+			'username',
+			'name',
+			'_on'=>'User.username=Article.author'
+		),
+	);
+}
+?>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">添加用户</span>
+		</p>
+   </div>
+	
+		<form action="__URL__/insert" method="post">
+			<p class="tbody_td website_tr"><span class="website_title">用户名:</span>
+				<input type="text" name="username" value="" class="art_form_title" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">密码:</span>
+				<input type="password" name="password" value="" class="art_form_title" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">重复密码:</span>
+				<input type="password" name="repassword" value="" class="art_form_title" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">Email:</span>
+				<input type="text" name="email" value="" class="art_form_title" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">昵称：</span>
+				<input type="text" name="name" value="" class="art_form_title" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">是否激活:</span>
+				是<input type="radio" value="1" name="active" checked="checked"/>
+				否<input type="radio" value="2" name="active" />
+			</p>
+			
+			<input type="submit" value="添加" name="login" class="login_sub website_sub"/>
+			<input type="reset" value="重置" name="reset" class="login_res"/>					
+		</form>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

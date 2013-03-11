@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span fwq">子菜单添加</span>
+		</p>
+	</div>
+		
+		<form action="__URL__/insert" method="post" enctype="multipart/form-data">
+			<p class="tbody_td website_tr"><span class="website_title">菜单标题:</span>
+				<input type="text" name="title" value="{$title['title']}" class="art_form_title"/>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">菜单别名:</span>
+				<input type="text" name="alias" value="" class="art_form_title"/>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">菜单项目ID:</span>
+				<input type="text" readonly="readonly" name="link" value="{$link}"  class="art_form_title"/>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">发布菜单:</span>
+				是<input type="radio" value="1" name="published" checked="checked"/>
+				否<input type="radio" value="0" name="published" />
+			</p>
+			
+			<!-- 如果选项是文章，则多一个选项供其上传相对应图片 -->
+			<if condition="$type eq Article">
+				<p class="tbody_td website_tr"><span class="website_title">上传图片:</span>
+					是<input type="radio"  name="upload_slide_img" id="upload_yes" />
+					否<input type="radio"  name="upload_slide_img" id="upload_no" checked="checked" />
+				</p>
+				<p class="tbody_td website_tr" id="img_p"><span class="website_title">选择图片:</span>
+					<input type="file"  name="upload_img" />
+				</p>
+			</if>
+			
+			<p class="tbody_td website_tr"><span class="website_title">所属菜单:</span>
+				<select class="addin_se1" name="menuid">
+					<volist name="menu_list" id="menus">
+						<option value="{$menus['id']}" <eq name="menus['id']" value="$menu_id">selected="selected"</eq> >{$menus['title']}</option>
+					</volist>
+				</select>
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title ">同级菜单:</span>
+				<select class="addin_se1" size="8" style="width:auto">
+					<volist name="m_items" id="menuitems" key="k">
+						<option value="{$menuitems['id']}">{$k}.{$menuitems['title']|msubstr=###,0,28}</option>
+					</volist>
+				</select>
+			</p>
+			<input type="hidden" value="{$type_id}" name="type_id" />
+			<input type="hidden" value="{$type}" name='type' />
+			<input type="hidden" value="{$componentid}" name='componentid' />
+			<input type="submit" value="添加" name="login" class="login_sub website_sub"/>
+			<input type="reset" value="重置" name="reset" class="login_res"/>
+		</form>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#upload_yes").click(function(){
+		$("#img_p").slideDown('1200');
+	})
+	$("#upload_no").click(function(){
+		$("#img_p").slideUp('1200');
+	})
+});
+</script>
+</body>
+</html>

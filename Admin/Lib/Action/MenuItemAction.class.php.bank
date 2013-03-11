@@ -1,0 +1,212 @@
+<?php
+class MenuItemAction extends CommonAction{
+	/**
+	 * 某菜单项下的 详细菜单列表（如 主菜单下有哪几个菜单）
+	 * 首先 显示主菜单下面的子菜单
+	 */
+	function index(){
+		//接受传来的菜单项ID用来获得该菜单下的 子菜单 
+		$menu_id = $_REQUEST['id'];
+		$menu = new MenuModel();
+		//查询该菜单项名称
+		$list = $menu->getById($menu_id);
+		$this->assign('mlist',$list);
+		
+		//导入分页类
+		import('ORG.Util.Page');
+		//实例化模型
+		$menu_items = new MenuItemModel();
+		//添加where语句找到该menu_id相对应的子菜单
+		$where['menuid'] = $menu_id;
+		//获取分页总数
+		$count = $menu_items->where($where)->count();
+		//完成分页
+		$page = new Page($count, C('PAGESIZE'));
+		$show = $page->show();
+		$this->assign("show",$show);
+		
+		$list = $menu_items->order('id')->where($where)->limit($page->firstRow.','.$page->listRows)->select();
+		$this->assign('milist',$list);
+		$this->display();
+	}
+	
+	/**
+	 *  添加新的子菜单，但是要选择是 哪种类型(Article,Category,Section).
+	 *  并且结合select方法用ajax返回所有的数据给用户选择子菜单
+	 */
+	function add(){		
+		//导入类
+		import('ORG.Util.Page');
+		//首先取得文章列表
+		$articles = new ArticleModel();
+	
+		$count = $articles->count();
+		$page = new Page($count, C('PAGESIZE'));
+		$show = $page->show();
+		$list = $articles->limit($page->firstRow.','.$page->listRows)->select();	
+		$this->assign('show',$show);
+		$this->assign('alist',$list);
+
+		$this->display();
+	}
+	
+	
+/*	
+	 //事实证明这里用ajax太麻烦。
+	 // 使用ajax返回用户用select选择的数据。
+	 // 返回字符串 str   输出给ajax
+	 //
+	function select(){
+		import('ORG.Util.Page');
+		//定义使用ajax返回的变量 
+		$str = '';
+		//如果选择的是article
+		if( $_POST['type'] == 'article'){
+			//实例化
+			$articles = new ArticleModel();			
+			$count = $articles->count();
+			$page = new Page($count,C('PAGESIZE'));
+			$list = $articles->select();	
+
+			//开始写入字符串以便输出
+			$str .= "<thead>
+						<tr>
+							<th style=\"width:5%;\">选择</th>
+			      			<th style=\"width:5%\">ID</th>
+							<th style=\"width:20%;\">标题</th>								
+							<th style=\"width:30%\">作者</th>
+							<th style=\"width:20%\">类型</th>
+							<th style=\"width:10%\">排序</th>	
+						</tr>
+					</thead>
+				<form action=\"__URL__/del\" method=\"post\" id=\"ForDel\">
+     		 	<tbody> ";
+			for($i=0;$i<$count;$i++){		
+	      		$str .= "<tr>
+				      		<td>
+				      			<input type='radio' name='add_id' value={$list[$i]['id']} />
+				      		</td>
+			      			<td>{$list[$i]['id']}</td>
+				      		<td align='center'>
+				      			<a href='/Andy/admin.php/Article/edit/id/{$list[$i]['id']}'>{$list[$i]['title']}</a>
+				      		</td>
+				      		<td>
+		      					{$list[$i]['author']}
+		      				</td>
+							<td>Article</td>
+				      		<td>{$list[$i]['order']}</td>		
+	      				</tr>";
+				}
+			$str .="</tbody>
+					</form>";
+			//分页的开始
+		}
+		else if( $_POST['type'] == 'category'){
+			//实例化
+			$categorys = new CategoryModel();
+			$list = $categorys->select();
+			$count = count($list);
+			//写入字符串
+			$str .= "<thead>
+						<tr>
+							<th style=\"width:5%;\">选择</th>
+			      			<th style=\"width:5%\">ID</th>
+							<th style=\"width:20%;\">标题</th>								
+							<th style=\"width:30%\">描述</th>
+							<th style=\"width:20%\">类型</th>
+							<th style=\"width:10%\">排序</th>	
+						</tr>
+					</thead>
+				<form action=\"__URL__/del\" method=\"post\" id=\"ForDel\">
+     		 	<tbody> ";
+			for($i=0;$i<$count;$i++){		
+	      		$str .= "<tr>
+				      		<td>
+				      			<input type='radio' name='add_id' value={$list[$i]['id']} />
+				      		</td>
+			      			<td>{$list[$i]['id']}</td>
+				      		<td align='center'>
+				      			<a href='/Andy/admin.php/Category/edit/id/{$list[$i]['id']}'>{$list[$i]['title']}</a>
+				      		</td>
+				      		<td align='center'>
+				      			{$list[$i]['description']}
+				      		</td>
+				      		<td>Category</td>	
+				      		<td>{$list[$i]['order']}</td>		
+	      				</tr>";
+				}
+			$str .="</tbody>
+					</form>";
+		}
+		else{
+			//实例化
+			$section = new SectionModel();
+			$list = $section->select();
+			$count = count($list);
+			//写入字符串
+			$str .= "<thead>
+						<tr>
+							<th style=\"width:5%;\">选择</th>
+			      			<th style=\"width:5%\">ID</th>
+							<th style=\"width:20%;\">标题</th>								
+							<th style=\"width:30%\">描述</th>
+							<th style=\"width:20%\">类型</th>
+							<th style=\"width:10%\">排序</th>	
+						</tr>
+					</thead>
+				<form action=\"__URL__/del\" method=\"post\" id=\"ForDel\">
+     		 	<tbody> ";
+			for($i=0;$i<$count;$i++){		
+	      		$str .= "<tr>
+				      		<td>
+				      			<input type='radio' name='add_id' value={$list[$i]['id']} />
+				      		</td>
+			      			<td>{$list[$i]['id']}</td>
+				      		<td align='center'>
+				      			<a href='/Andy/admin.php/Section/edit/id/{$list[$i]['id']}'>{$list[$i]['title']}</a>
+				      		</td>
+				      		<td align='center'>
+				      			{$list[$i]['description']}
+				      		</td>
+				      		<td>Section</td>	
+				      		<td>{$list[$i]['order']}</td>		
+	      				</tr>";
+				}
+			$str .="</tbody>
+					</form>";
+		}
+		//输出给ajax
+		echo $str;		
+	}
+	
+	//分页方法
+	function page(){
+		//导入类
+		import('ORG.Util.Page');
+		
+		$type = $_POST['type'];
+		//判断类型
+		if($type == 'article'){
+			$articles = new ArticleModel();
+			$list = $articles->select();
+			//总数
+			$count = $articles->count();
+		}else if($type == 'category'){
+			$category = new CategoryModel();
+			$list = $category->select();
+			//总数
+			$count = $category->count();
+		}else{
+			$section = new SectionModel();
+			$list = $section->select();
+			//总数
+			$count = $section->count();		
+		}
+		//开始分页
+		$page = new Page($count, C('PAGESIZE'));
+		$show = $page->show();
+		echo $show;
+	}
+*/
+}
+?>

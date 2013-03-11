@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span fwq">{$Think.lang.left_1_2}</span>
+		</p>
+	</div>	
+		
+			<p class="tbody_td website_tr ">
+				<img class="website_tr_img" src="__PUBLIC__/Admin/images/ts.gif"/>
+				<span class="website_tr_span" >提示: 带*号的选项请勿修改或联系管理员后修改(注：修改文件后，一定要清空缓存才能看见新数据)</span>
+			</p>
+			<form action="__URL__/update_website" method="post">
+				<p class="tbody_td website_tr"><span class="website_title">分页显示数:</span>
+					<input type="text" value="{$Think.config.PAGESIZE}" name="PAGESIZE"  class="inputt1" />
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">URL模式:<font style="color:red;">*</font></span>
+					<input type="text" value="{$Think.config.URL_MODEL}" name="URL_MODEL" class="inputt1" />
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">模板编译缓存:</span>
+					开启<input type="radio" value="true" name="TMPL_CACHE_ON" <php>if(C("TMPL_CACHE_ON") === true){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					关闭<input type="radio" value="false" name="TMPL_CACHE_ON" <php>if(C("TMPL_CACHE_ON") === false){echo "checked='checked'";}</php> />
+				</p>	
+								
+				<p class="tbody_td website_tr"><span class="website_title">静态缓存:</span>
+					开启<input type="radio" value="true" name="HTML_CACHE_ON" <php>if(C("HTML_CACHE_ON") === true){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					关闭<input type="radio" value="false" name="HTML_CACHE_ON" <php>if(C("HTML_CACHE_ON") === false){echo "checked='checked'";}</php> />
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">静态文件后缀:</span>
+					<input type="text" value="{$Think.config.HTML_FILE_SUFFIX}" name="HTML_FILE_SUFFIX" class="inputt1" />
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">静态缓存读取方式:</span>
+					读取缓存文件<input type="radio" value="0" name="HTML_READ_TYPE" <php>if(C("HTML_READ_TYPE") == 0){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					重定向到静态文件<input type="radio" value="1" name="HTML_READ_TYPE" <php>if(C("HTML_READ_TYPE") == 1){echo "checked='checked'";}</php> />
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">静态缓存有效期:</span>
+					<input type="text" value="{$Think.config.HTML_CACHE_TIME}" name="HTML_CACHE_TIME" class="inputt1" />秒&nbsp;<font style="color:red">(注:-1表示有效期为没有限制)</font>
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">字段缓存:</span>
+					开启<input type="radio" value="true" name="DB_FIELDS_CACHE" <php>if(C("DB_FIELDS_CACHE") === true){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					关闭<input type="radio" value="false" name="DB_FIELDS_CACHE" <php>if(C("DB_FIELDS_CACHE") === false){echo "checked='checked'";}</php> />
+				</p>
+					
+				<p class="tbody_td website_tr"><span class="website_title">开启多语言:</span>		
+					开启<input type="radio" value="true" name="LANG_SWITCH_ON" <php>if(C("LANG_SWITCH_ON") === true){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					关闭<input type="radio" value="false" name="LANG_SWITCH_ON" <php>if(C("LANG_SWITCH_ON") === false){echo "checked='checked'";}</php> />					
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">默认语言:</span>
+					 汉语<input type="radio" value="zh-cn" name="DEFAULT_LANG" <php>if(C("DEFAULT_LANG") == 'zh-cn'){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					英语<input type="radio" value="en-us" name="DEFAULT_LANG" <php>if(C("DEFAULT_LANG") === 'en-us'){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					日语<input type="radio" value="ja-jp" name="DEFAULT_LANG" <php>if(C("DEFAULT_LANG") === 'ja-jp'){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					德语<input type="radio" value="de-de" name="DEFAULT_LANG" <php>if(C("DEFAULT_LANG") === 'de-de'){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					法语<input type="radio" value="fr-fr" name="DEFAULT_LANG" <php>if(C("DEFAULT_LANG") === 'fr-fr'){echo "checked='checked'";}</php> />
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">自动侦测语言:<font style="color:red;">*</font></span>
+					开启<input type="radio" value="true" name="LANG_AUTO_DETECT" <php>if(C("LANG_AUTO_DETECT") === true){echo "checked='checked'";}</php> />
+					&nbsp;&nbsp;
+					关闭<input type="radio" value="false" name="LANG_AUTO_DETECT" <php>if(C("LANG_AUTO_DETECT") === false){echo "checked='checked'";}</php> />
+				</p>
+				
+				<p class="tbody_td website_tr"><span class="website_title">邮箱地址:</span>
+					<input type="text" value="{$Think.config.MAIL_ADDRESS}" name="MAIL_ADDRESS" class="inputt1" />
+				</p>
+				<p class="tbody_td website_tr"><span class="website_title">发件人姓名:</span>
+					<input type="text" value="{$Think.config.MAIL_NAME}" name="MAIL_NAME" class="inputt1" />
+				</p>
+				<p class="tbody_td website_tr"><span class="website_title">SMTP服务器:</span>
+					<input type="text" value="{$Think.config.MAIL_SMTP}" name="MAIL_SMTP" class="inputt1" />
+				</p>
+				<p class="tbody_td website_tr"><span class="website_title">邮箱登录帐号:</span>
+					<input type="text" value="{$Think.config.MAIL_LOGIN}" name="MAIL_LOGIN" class="inputt1" />
+				</p>
+				<p class="tbody_td website_tr"><span class="website_title">邮箱登录密码:</span>
+					<input type="password" value="{$Think.config.MAIL_PASSWORD}" name="MAIL_PASSWORD" class="inputt1" />
+				</p>				
+					<input type="submit" value="应用" name="login"  class="login_sub website_sub"/>
+					<input type="reset" value="取消" name="reset" class="login_res"/>				
+			</form>	
+</div>
+
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

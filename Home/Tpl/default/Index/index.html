@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$config.site_title}</title>
+<meta name="Keywords" content="{$config.site_keywords}" />
+<meta name="Description" content="{$config.site_description}" />
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Home/Css/index.css" />
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Home/Css/slide_img.css" />
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Home/Css/slide_tools.css" />
+<script src="__PUBLIC__/Home/Js/marquee.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Admin/Js/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Home/Js/side_jquery.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Home/Js/jquery.tools.min.js" type="text/javascript"></script>
+</head>
+<body>
+<!-- 包含公用   导航 头部页面 -->
+<include file="head"/>
+
+<div id="content">
+	<!--首页  中间内容页面 -->
+	<div id="middle_content">
+	
+		<!-- 幻灯片 -->
+		<div id="menu_img_slide">
+			<img src="__PUBLIC__/Home/images/new-ribbon.jpg" alt="New Ribbon" id="ribbon" /> 
+	       	<div id="slides"> 
+	           <div class="slides_container"> 
+		           <volist name="menu_img_slide" id="vo">
+						<div> 
+                			<a href="{:U('Article/view?id=')}{$vo['m_i_link']}"><img src="__PUBLIC__/Uploads/{$vo['m_i_src']}" /></a> 
+	                    	<div class="caption" style="bottom:0"> 
+	                            <p>{$vo['m_i_title']}</p> 
+	                        </div> 
+              		  </div> 
+					</volist>		            		                            
+	          </div> 	      
+		 	</div> 	 
+		</div>
+		
+		<!-- 热点内容 -->
+		<div id="menu_hot_content">
+			<volist name="menu_hot_content" id="vo" offset="0" length='2'>		 
+				<p class="HotTitle"><a href="{:U('Article/view?id=')}{$vo['m_i_link']}">{$vo.m_i_title|msubstr=###,0,18}</a></p>
+				<p class="HotText">{$vo[description][description]|strip_tags|msubstr=###,0,90}...</p>
+				<p class="fengexian"></p>		
+			</volist>
+			<ul class="hot_content_ul">
+				<volist name="menu_hot_content" id="vo" offset="2" length="4">	
+					<li class="hot_content_li">
+						<a href="{:U('Article/view?id=')}{$vo['m_i_link']}">{$vo.m_i_title|msubstr=###,0,32}</a>
+					</li>	
+				</volist>	
+			</ul> 
+		</div>
+			
+		<!-- 图文内容 -->
+		<div id="menu_img_content">
+			<div class="img_content_title">最新图文</div>
+			<div class="scrollable">     
+				<div class="items">
+					<div>
+				   		<volist name="menu_img_content" id="vo" offset="0" length="4">
+			   				<a href="{:U('Article/view?id=')}{$vo['m_i_link']}"><img src="__PUBLIC__/Uploads/{$vo['m_i_src']}" title="{$vo['m_i_title']}"/></a>		  			   				
+				   		</volist>	
+			   		</div>		   		
+			   		<div>
+				   		<volist name="menu_img_content" id="vo" offset="4" length="4">
+			   				<a href="{:U('Article/view?id=')}{$vo['m_i_link']}"><img src="__PUBLIC__/Uploads/{$vo['m_i_src']}" /></a>		  			   				
+				   		</volist>	
+			   		</div>				  
+			   </div>
+			</div>
+			<a class="prev browse left"></a>
+			<a class="next browse right"></a>
+		</div>
+		
+		<!-- 中间内容 -->
+		<div id="menu_middle_content">
+			<!-- 循环出大标题 -->
+			<volist name="menu_middle_content" id="vo" key="k" >
+				<!-- 如果是奇数个的话，例如1,3,5...则为left -->
+				<if condition="$k%2 eq 1">
+					<div class="menu_middle_content_left">
+				<else/>
+					<div class="menu_middle_content_right">
+				</if>	
+						<div class="middle_content_title">
+							<a href="{:U('Category/view?id=')}{$vo['m_i_type_id']}">{$vo['m_i_title']}</a>
+							<a class="title_more" href="{:U('Category/view?id=')}{$vo['m_i_type_id']}">更多</a>
+						</div>
+						<!-- 继续循环出文章列表 -->
+						<ul>
+							<volist name="vo['art_info']" id="art_list" offset="0" length="8">
+								<li class="hot_content_li middle_content_li">
+									<a href="{:U('Article/view?id=')}{$art_list['id']}">{$art_list['title']|msubstr=###,0,25}</a>
+								</li>	
+							</volist>
+						</ul>						
+					</div>
+			</volist>		
+		</div>		
+	</div>
+		
+	<!-- 首页 右侧边栏内容 -->
+	<div id="menu_side_bar">
+		<volist name="menu_side_bar" id="vo">
+			<div class="side_bar_warp">
+				<div class="middle_content_title">
+					<a href="{:U('Category/view?id=')}{$vo['m_i_type_id']}">{$vo['m_i_title']}</a>
+					<a class="title_more" href="{:U('Category/view?id=')}{$vo['m_i_type_id']}">更多</a>
+				</div>
+				<ul>
+					<volist name="vo['art_info']" id="art_list" offset="0" length="11">
+						<li class="hot_content_li">
+							<a href="{:U('Article/view?id=')}{$art_list['id']}">{$art_list['title']|msubstr=###,0,20}</a>
+						</li>	
+					</volist>										
+				</ul>
+			</div>			
+		</volist>
+	</div>		
+<div id="FriendUrl">
+    <div class="FriendUrlTitle">友情链接</div>
+    <ul>
+    	<volist name="get_link" id="vo">
+    		<li class="url_li">
+    			<a href="{$vo['link_url']}" target='_blank'>{$vo['link_name']}</a>
+    		</li>
+    	</volist>  	
+    </ul>
+</div>
+	
+<!-- 包含公用  尾部页面 -->
+<include file="footer"/>
+
+<script type="text/javascript">
+//幻灯片 js 
+$(function(){				
+	$('#slides').slides({
+		preload: true,
+		preloadImage: 'img/loading.gif',
+		play: 5000,
+		pause: 2500,
+		hoverPause: true,
+		animationStart: function(){
+			$('.caption').animate({
+				bottom:-35
+			},100);
+		},
+		animationComplete: function(current){
+			$('.caption').animate({
+				bottom:0
+			},200);
+			if (window.console && console.log) {
+				console.log(current);
+			};
+		}
+	});
+});
+
+//图文js
+$(function() {
+	// custom easing called "custom"
+	$.easing.custom = function (x, t, b, c, d) {
+		var s = 1.70158; 
+		if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
+		return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+	}
+	$("div.scrollable").scrollable({easing: 'custom', speed: 1000, circular: true});
+});
+</script>
+</body>
+</html>

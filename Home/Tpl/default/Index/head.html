@@ -1,0 +1,43 @@
+<!-- 头部滚动  -->
+<div id="minibg">
+	 <div id="mini">
+		 <div id="notice">
+			 <ul id="marquee">
+				 <volist name="roll_arts" id="vo">
+					 <li><a href="__APP__/Article/view/id/{$vo.id}">{$vo.title|msubstr=###,0,20}</a></li>
+				 </volist>
+			 </ul>
+		 </div>
+		<script type="text/javascript">new Marquee("marquee",0,3,300,24,50,3000,3000)</script>
+			  
+	   	<div id="mini2">
+	   		<script language="javascript" src="__PUBLIC__/Home/Js/date.js"></script>
+	   	</div>
+	</div>
+</div>
+
+<!-- 图片  -->
+<div id="head">
+	
+</div>
+	
+<!-- 导航菜单 -->
+<div id="menu_top_nav" >
+	<ul class="top_nav_ul">
+		<li>
+			<a href="__APP__/Index/index">首 页</a>
+		</li>
+		<volist name="menu_top_nav" id="vo">
+				<li>
+					<a href="{:U('Section/view?id=')}{$vo['m_i_link']}">{$vo['m_i_title']|msubstr=###,0,6}</a>
+				</li>
+		</volist>					
+	</ul>
+</div> 
+	
+<!-- 所在位置 -->
+<div id="positionbg">
+	<div id="position">
+		<a href="{:U('Index/index')}">首页</a><present name="nav">{$nav}</present>
+	</div>
+</div>

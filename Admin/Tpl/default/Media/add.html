@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/media.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/media.min.js"></script>
+<script type="text/javascript">
+//验证URL的函数
+function IsURL(str_url){
+	var strRegex = "^((https|http|ftp|rtsp|mms)://)"
+	+ "(([0-9a-z_!~*’().&=+$%-]+: )?[0-9a-z_!~*’().&=+$%-]+@)?" //ftp的user@
+	+ "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+	+ "|" // 允许IP和DOMAIN（域名）
+	+ "([0-9a-z_!~*’()-]+\.)*" // 域名- www.
+	+ "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+	+ "[a-z]{2,6})" // first level domain- .com or .museum
+	+ "(:[0-9]{1,4})?" // 端口- :80
+	var re=new RegExp(strRegex);
+	if (re.test(str_url)){
+		return true;
+	}else{
+		return false;
+	}
+}
+//文本框的特效
+$(document).ready(function(){
+	$("#pb-video-search-input").change(function(){			
+			var text_val = $(this).val();
+			if( IsURL(text_val) === false){	
+				$(this).val('');
+				$("#error_url").show();
+			}else{
+				$("#error_url").hide();
+				//ajax得到url里面的文本信息
+				$.post("__URL__/search_media",{"video_url":text_val},function(data){
+					if(data){
+						$("#add_success").slideDown('1200');
+						$("#show_description").hide();
+						$("#show_video").slideDown('1200');
+						$(".media").attr('href',data);
+						$(".media").media({
+							 width:550, 
+							 height:250, 
+						});
+						//赋值给隐藏表单进行传输
+						$("#swf_url").val(data);
+					}else{
+						$("#add_success").slideDown('1200').html('视频添加失败，请检查链接');
+					}
+					
+				});
+			}	
+	});
+});
+
+//点击返回，则回到原始
+$(document).ready(function(){
+	$("#pb-cancel").click(function(){
+		$("#show_video").hide();
+		$("#show_description").slideDown("1200");
+	});
+});
+</script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">添加视频</span>
+		</p>
+	</div>
+	
+	<div id="publish_video_bg">
+		<div id="publish_video">
+			<h2 class="publish_title">发布视频</h2>
+			<h3 class="pb-section-title">
+			链接地址
+				<span>(支持优酷的视频发布)</span>
+				<span id="error_url">您输入的地址不合法</span>
+			</h3>
+			<form method="post" action="__URL__/add_db">
+				<input type="text" value="" id="pb-video-search-input" class="pb-input-text" name="video_url">
+				<div id="add_success">视频添加成功</div>
+				
+				<div id="show_description">
+					<h3 class="pb-section-title">
+					描述
+						<span>(可不填)</span>
+					</h3>						
+					<textarea name=description  id="description" class="media_textarea"></textarea>
+				</div>	
+				
+				<!-- 显示添加的视频 -->
+				<div id="show_video">
+					<a href="" class="media"></a>
+				</div>
+				
+				<div id="vedio_button">
+					<!-- 将swf的值也传过去，通过上面的jquery 赋值 -->
+					<input type="hidden" name="swf_url" id="swf_url" value="" />
+					<input type="submit" class="blue-button" id="pb-submit" value="发布" />
+					<input type="button" class="gray-button" id="pb-cancel" value="描述" />
+				</div>
+				{__NOTOKEN__}
+			</form>
+		
+		</div>	
+	</div>
+	
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

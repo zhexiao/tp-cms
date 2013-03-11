@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<style type="text/css">
+.icon-help {
+background:url(__PUBLIC__/Admin/images/email.png) no-repeat center;
+}
+</style>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">{$Think.lang.left_5_4}</span>
+		</p>
+	</div>
+		
+
+<table width="100%">
+  <tr>
+    
+    <td valign="top">
+    <!-- 工具栏 表格 -->
+    <table class="toolbar" width="100%">
+    	<tr>
+    		<td width="95%" class="search">
+		    <div id="side-search-holder" >
+				<form id="side-search-form" action="__URL__/index" method="post">
+					<div class="side-search-box" id="search-box">
+						<input type="text" id="side-search-input" value="搜索标签" name="keyword" title="ID搜索或标题搜索"/>
+					</div>					
+					<button id="go-search" class="side-go-search" type="submit">搜索</button>
+				</form>
+			<div>
+			
+			<!-- 给搜索框添加事件 -->
+			<script type="text/javascript">		
+			//Tooltips 功能
+			$(function(){					
+				$('#side-search-input').poshytip({
+					className: 'tip-darkgray',
+					showOn: 'focus',
+					alignTo: 'target',
+					alignX: 'inner-left',
+					offsetX: 105,
+					offsetY: 10,
+				});		
+			});
+		
+			//切换功能
+				$("#side-search-input").focus(function(){
+					$(this).val('');
+					$(this).parent().removeClass("side-search-box").addClass("click-side-search-box");
+					$("#go-search").removeClass("side-go-search").addClass("click-side-go-search");
+				});
+				$("#side-search-input").blur(function(){
+					$(this).parent().removeClass("click-side-search-box").addClass("side-search-box");
+					$("#go-search").removeClass("click-side-go-search").addClass("side-go-search");
+				});
+			</script>									
+    		</td>
+    		<td>
+      			<a href="__APP__/Help/index"><span class="icon-help"></span>&nbsp;帮助</a>
+      		</td>
+      	</tr>
+      </table>
+        <table class="adminlist"  width="100%"  cellpadding="0" cellspacing="0">
+        <thead>
+      		<tr>
+				<th style="width:20%;" class="admintitle">标题(前台布局ID)</th>
+				<th style="width:20%;" class="admintitle">描述</th>		
+				<th style="width:20%;" class="admintitle">操作</th>
+    		</tr>
+      	</thead>
+	      	<tbody>     	
+		      	<volist name="layouts" id="vo" key="k">	
+		      		<tr class="focus_table_tr">
+			      		<td class="tbody_td"><a href="__URL__/look/blockname/{$vo}">{$vo}</a></td>	
+			      		<td class="tbody_td">{$key}</td>	
+			      		<td class="tbody_td">	
+				      		<a href="__URL__/add/blockname/{$vo}" >添加</a>			      				      			
+			      			<a href="__URL__/look/blockname/{$vo}">查看</a>	
+			      			<a href="__URL__/del/blockname/{$vo}">删除</a>
+			      		</td>		      	
+		      		</tr>
+		      	</volist>
+	      	</tbody>	      	
+      	
+      	<script type="text/javascript">
+    	// 给每一行加上区别的特效
+		$(".focus_table_tr").hover(
+				function(){
+					$(this).addClass('focus_tr');
+				},
+				function(){
+					$(this).removeClass('focus_tr');
+				}
+		);		
+      	</script>    		         		      	
+  
+      	</table>
+      </td>        
+	</tr>
+</table>
+	</div>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

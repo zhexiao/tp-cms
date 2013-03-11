@@ -1,0 +1,44 @@
+<div class="main_content">
+	<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span fwq">{$Think.lang.left_1_3}</span>
+	</p>
+</div>	
+		<p class="tbody_td website_tr ">
+			<img class="website_tr_img" src="__PUBLIC__/Admin/images/ts.gif"/>
+			<span class="website_tr_span" >提示: 带*的项目为必填信息！(当您更新数据库文件后,必须要清除缓存才能看见新数据)</span>
+		</p>
+		<form action="__URL__/update" method="post">
+			<p class="tbody_td website_tr"><span class="website_title">数据库类型:</span>
+				<input type="text" value="{$Think.config.DB_TYPE}" name="DB_TYPE" disabled class="inputt1">
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">服务器地址:<font style="color:red;">*</font></span>
+				<input type="text" value="{$Think.config.DB_HOST}" name="DB_HOST" class="inputt1">
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">数据库名称:<font style="color:red;">*</font></span>
+				<input type="text" value="{$Think.config.DB_NAME}" name="DB_NAME" class="inputt1">
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">数据库用户名:<font style="color:red;">*</font></span>
+				<input type="text" value="{$Think.config.DB_USER}" name="DB_USER" class="inputt1">
+			</p>
+			<p class="tbody_td website_tr"><span class="website_title">数据库密码:<font style="color:red;">*</font></span>
+				<input type="text" value="{$Think.config.DB_PWD}" name="DB_PWD" class="inputt1">
+			</p>
+			<p class="tbody_td website_tr"><span class="website_title">数据表前缀:</span>
+				<input type="text" value="{$Think.config.DB_PREFIX}" name="DB_PREFIX" class="inputt1">
+			</p>
+			<p class="tbody_td website_tr"><span class="website_title">数据库字符集:</span>
+				<input type="text" value="{$Think.config.DB_CHARSET}" name="DB_CHARSET" class="inputt1">
+			</p>
+			<p class="tbody_td website_tr"><span class="website_title">数据库端口:</span>
+				<input type="text" value="{$Think.config.DB_PORT}" name="DB_PORT" class="inputt1">
+			</p>
+			<p><p class="tbody_td website_tr"><span class="website_title">数据部署方式:</span>
+				<input type="text" value="{$Think.config.DB_DEPLOY_TYPE}" name="DB_DEPLOY_TYPE" class="inputt1">
+			</p>
+				<input type="submit" value="应用" name="login" class="login_sub website_sub"/>
+				<input type="reset" value="取消" name="reset" class="login_res"/>
+			
+		</form>

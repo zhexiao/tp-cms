@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>	
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/jquery-ui-1.8.10.custom.css" />	
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-ui-1.8.10.custom.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<script type="text/javascript">
+$(function(){
+	// Accordion
+	$("#accordion").accordion({ header: "h3"});
+});
+</script>
+</head>
+<body>
+<div id="top">
+	<include file="top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span>{$Think.lang.left_1_1}</span>
+		</p>
+		
+	
+		<!--图标项-->
+		<div id="control_panel">
+			<div class="panel">
+				<a href="__APP__/Config/front_config"><img src="__PUBLIC__/Admin/images/icon-48-config.png" alt/><span>前台设置</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/Config/website"><img src="__PUBLIC__/Admin/images/icon-48-server.png" alt/><span>后台设置</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/Article/index"><img src="__PUBLIC__/Admin/images/icon-48-article.png" alt/><span>文章管理</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/Article/add"><img src="__PUBLIC__/Admin/images/icon-48-article-add.png" alt/><span>创建文章</span></a>		
+			</div>
+					
+			<div class="panel">
+				<a href="__APP__/Category/index"><img src="__PUBLIC__/Admin/images/icon-48-category.png" alt/><span>类别管理</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/Media/index"><img src="__PUBLIC__/Admin/images/icon-48-media.png" alt/><span>媒体管理</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/Menu/index"><img src="__PUBLIC__/Admin/images/icon-48-menu.png" alt/><span>菜单管理</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/User/index"><img src="__PUBLIC__/Admin/images/icon-48-user.png" alt/><span>用户管理</span></a>						
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/User/profile"><img src="__PUBLIC__/Admin/images/icon-48-user-profile.png" alt/><span>修改个人资料</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/File/index"><img src="__PUBLIC__/Admin/images/icon-48-folder.png" alt/><span>文件管理</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/block/index"><img src="__PUBLIC__/Admin/images/icon-48-module.png" alt/><span>区块管理</span></a>		
+			</div>				
+			
+			<div class="panel">
+				<a href="__APP__/Language/index"><img src="__PUBLIC__/Admin/images/icon-48-language.png" alt/><span>语言管理</span></a>		
+			</div>			
+			<!--
+			<div class="panel">
+				<a href="__APP__/Themes/index"><img src="__PUBLIC__/Admin/images/icon-48-themes.png" alt/><span>主题管理</span></a>		
+			</div>
+			-->					
+			<div class="panel">
+				<a href="__APP__/Tool/generate_rss"><img src="__PUBLIC__/Admin/images/icon-48-rss.png" alt/><span>生成RSS</span></a>		
+			</div>
+			
+			<div class="panel">
+				<a href="__APP__/Tool/backup_db"><img src="__PUBLIC__/Admin/images/icon-48-database.png" alt/><span>备份数据库</span></a>		
+			</div>	
+			
+			<div class="panel">
+				<a href="__APP__/Tool/log_record"><img src="__PUBLIC__/Admin/images/icon-48-login.png" alt/><span>登录记录</span></a>		
+			</div>	
+			
+			<div class="panel">
+				<a href="__APP__/Tool/clear_cache"><img src="__PUBLIC__/Admin/images/icon-48-trash.png" alt/><span>清除缓存</span></a>		
+			</div>					
+		</div>
+		
+	<!-- 文本项 -->
+	<div id="accordion">
+			<div>
+				<h3><a href="#">最新发布的文章</a></h3>
+				<div>
+					<volist name="art_list" id="arts" key="k">
+						<a href="__APP__/Article/edit/id/{$arts['id']}" class="accordion_a">{$k}.&nbsp;{$arts['title']|msubstr=###,0,14}<php>if( get_length($arts['title']) >= 25 ){echo '&nbsp;······';}</php><span class="accordion_date">{$arts['created']}</span></a>
+					</volist>
+				</div>
+			</div>
+			<div>
+				<h3><a href="#">最新的留言记录</a></h3>
+					<div>
+						<volist name="log_list" id="logs" key="k">
+							<a href="" class="accordion_a">{$k}.&nbsp;坐等留言<span class="accordion_date">留言日期:{$logs['login_date']}</span></a>
+						</volist>
+					</div>
+			</div>
+			<div >
+				<h3><a href="#">最新的登录记录</a></h3>
+					<div>
+						<volist name="log_list" id="logs" key="k">
+							<a href="" class="accordion_a">{$k}.&nbsp;{$logs['username']}<span class="accordion_date">登录日期:{$logs['login_date']}</span></a>
+						</volist>
+					</div>	
+			</div>
+			<div >
+				<h3><a href="#">最新的文章评论</a></h3>
+					<div>
+						<volist name="com_list" id="vo" key="k">
+							<a href="{:U('Comment/look?aid=')}{$vo['art_id']}" class="accordion_a">{$k}.&nbsp;{$vo['comment']|msubstr=###,0,17}...<span class="accordion_date">{$vo['created']}</span></a>
+						</volist>
+					</div>	
+			</div>
+		</div>
+	
+	</div>
+</div>
+			
+
+<div id="left">
+	<include file="left"/>
+</div>
+</body>
+</html>

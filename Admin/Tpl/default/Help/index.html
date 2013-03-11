@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/jquery.wysiwyg.css"  />
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/editor_desc.js"></script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span">发送Email求助</span>
+		</p>
+	</div>
+	
+	
+		<form action="__URL__/send_email" method="post">
+			<p class="tbody_td website_tr"><span class="website_title">我的电子邮件:</span>
+				<input type="text" readonly="readonly" name="email_from" value="{$Think.config.MAIL_LOGIN}" class="art_form_title" />
+			</p>
+			
+			<p class="tbody_td website_tr"><span class="website_title">收件人:</span>
+				<input type="text" name="email_to" value="" class="art_form_title"/>
+			</p>
+					
+			<p class="tbody_td website_tr"><span class="website_title">主题:</span>
+				<input type="text"  name="title" value="" class="art_form_title"/>
+			</p>				
+			
+			<p class="tbody_td website_tr"><span class="website_title art_add_span">内容描述:</span>
+				<textarea name="description" id="description" class="art_form_textarea"></textarea>
+			</p>
+			
+			<input type="submit" value="Send" name="login" class="login_sub website_sub"/>
+			<input type="reset" value="重写" name="reset" class="login_res"/>				
+		</form>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

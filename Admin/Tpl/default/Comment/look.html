@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Home/Css/comment.css" />
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/my.js"></script>
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div id="wrap">
+		<empty name="list[0]['c_created']">
+			<div class="wrap_middle">
+				暂无评论
+			</div>
+			<else/>
+				<div class="main_content">
+					<p class="tbody_td website_tr main_content_t1">
+						<span class="top_bt_span" style="float:left;">文章<a href="{:U('Article/edit?id=')}{$list[0]['a_id']}" class="comment_a">【{$list[0]['a_title']}】</a>的评论</span>
+					</p>
+				</div>
+				<volist name="list" id="vo" key="k">
+					<div class="wrap_middle">
+						<div class="text">{$vo['c_comment']}</div>
+						<div class="time"><span style="margin-right:10px;color:black;">发布时间:</span>{$vo['c_created']}</div>
+						<div class="name"><span style="margin-right:10px;color:black;">发布人:</span>{$vo['c_name']}</div>
+						<div class="del">
+							<input type="button" value="删除" onclick="window.location.href='{:U('Comment/del?del_id=')}{$vo['c_id']}'" class="login_sub"/>
+						</div>
+					</div>
+				</volist>
+		</empty>	
+	</div>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

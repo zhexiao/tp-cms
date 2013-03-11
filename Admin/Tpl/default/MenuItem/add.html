@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/style.css"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/Css/skin.css"/>
+<script type="text/javascript" src="__PUBLIC__/Admin/Js/jquery-1.7.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".left_a").click(function(){
+		$(".xz").slideUp();
+		$(this).parent().find(".xz").slideDown("500");
+	});
+});
+</script>
+<style type="text/css">
+.icon-new {
+background-image:url(__PUBLIC__/Admin/images/icon-new.png);
+}
+.icon-edit {
+background-image:url(__PUBLIC__/Admin/images/icon-edit.png);
+}
+.icon-delete {
+background-image:url(__PUBLIC__/Admin/images/icon-delete.png);
+}
+.icon-help {
+background:url(__PUBLIC__/Admin/images/email.png) no-repeat center;
+}
+</style>
+
+</head>
+<body>
+<div id="top">
+	<include file="Manage:top"/>
+</div>
+
+<div id="main">
+	<div class="main_content">
+		<p class="tbody_td website_tr main_content_t1">
+			<span class="top_bt_span fwq">子菜单添加</span>
+		</p>
+	</div>
+		
+<table width="100%">
+  <tr>
+    
+    <td valign="top">
+    <!-- 工具栏 表格 -->
+    <table class="toolbar" width="100%">
+    	<tr>
+    		<td width="90%" class="search">
+    		<input type="button" value="返回" onclick="window.history.go(-1);" class="login_res top1_bt"/>
+    		<div class="top1">
+				<volist name="comlist" id="com">
+					<a href="__URL__/add/link/{$com['link']}" class="top_a"><font class="top_spana">{$com['name']}</font></a>
+				</volist>
+			</div>
+    		</td>
+      		<td>
+      			<a href="" onclick="$('#ForSub').submit();return false;"><span class="icon-new"></span>&nbsp;创建</a>
+      		</td>
+      		<td>
+      		
+      		</td>
+      		<!-- 
+      		<td>
+      			<a href="" onclick="$('#ForSub').submit();return false;"><span class="icon-delete"></span>|删除</a>
+      		</td>
+      		 -->
+      		<td>
+      			<a href="__APP__/Help/index"><span class="icon-help"></span>&nbsp;帮助</a>
+      		</td>
+      		
+      	</tr>
+      </table>
+        <table class="adminlist"  width="100%"  cellpadding="0" cellspacing="0">
+        <thead>
+      		<tr>
+      			<th style="width:5%;" class="admintitle">选择</th>
+      			<th style="width:5%" class="admintitle">ID</th>
+				<th style="width:30%;" class="admintitle">标题</th>
+				<if condition="($link eq 'article') OR ($link eq '')">
+					<th style="width:20%;" class="admintitle">作者</th>
+					<th style="width:10%" class="admintitle">文章属性</th>	
+				<else/>
+					<th style="width:20%;" class="admintitle">描述</th>	
+					<th style="width:5%" class="admintitle">排序</th>
+				</if>
+				<th style="width:10%" class="admintitle">类型</th>
+				<th style="width:5%;" class="admintitle">启用</th>
+    		</tr>
+      	</thead>
+      	<!-- 使用Jquery进行删除表单的提交，一定要返回false,不然会执行<a> -->
+      	<form action="__URL__/addin" method="post" id="ForSub">
+      	<tbody>     		
+      		<volist name="list" id="vo" key="k">
+	      		<tr class="focus_table_tr">
+		      		<td class="tbody_td">
+		      			<input type="radio" name="creat_id" value="{$vo['id']}" <eq name="k" value="1">checked="checked"</eq> />
+		      			<!-- 判断并且传type过去 -->
+		   				<if condition="($link eq 'article')  OR ($link eq '')">
+			      			<input type="hidden" name="type" value="article" />
+			      		<else/>
+							<input type="hidden" name="type" value="{$link}" />
+			      		</if>	
+		      		</td>
+		      		<td class="tbody_td">{$vo['id']}</td>
+		      		<td align="center" class="tbody_td">
+			      		<if condition="($link eq 'article')  OR ($link eq '')">
+			      			<a href="__APP__/article/edit/id/{$vo['id']}">{$vo['title']}</a>
+			      		<else/>
+							<a href="__APP__/{$link}/edit/id/{$vo['id']}">{$vo['title']}</a>
+			      		</if>		
+		      		</td>
+		      		<if condition="($link eq 'article')  OR ($link eq '')">
+		      			<td class="tbody_td"><span class="cdescription">{$vo['author']}</span></td>
+		      		<else/>
+						<td class="tbody_td"><span class="cdescription">{$vo['description']}</span></td>
+		      		</if>
+		      		<td class="tbody_td">
+		      			<if condition="($link eq 'article')  OR ($link eq '')">
+			      			<if condition="$vo['art_attr'] eq 1">
+			      				普通文章
+			      			<elseif condition="$vo['art_attr'] eq 2" />
+			      				<font style="color:blue;">热点文章</font>
+			      			<elseif condition="$vo['art_attr'] eq 3" />
+			      				<font style="color:orange;">置顶文章</font>
+			      			<else/>
+			      				<font style="color:red;">热点置顶文章</font>
+			      			</if>
+		      			<else/>
+		      				{$vo['order']}
+		      			</if>
+		      		</td>
+		      		<td class="tbody_td">
+		      			<if condition="($link eq 'article')  OR ($link eq '')">
+		      				Article
+		      			<else/>
+		      				{$link|ucfirst}
+		      			</if>
+		      		</td>	      	
+	      			<td class="tbody_td">
+			      		<eq name="vo['published']" value="1">
+			      			<img width="16" height="16" border="0" alt="启用" src="__PUBLIC__/Admin/images/p.png"/>
+			      		<else />
+			      			<img width="16" height="16" border="0" alt="禁止" src="__PUBLIC__/Admin/images/x.png"/>
+			      		</eq>
+		      		</td>
+	      		</tr>
+      		</volist>   		
+      	</tbody>
+      	</form> 	      					
+      	</table>
+      </td>        
+	</tr>
+</table>
+		
+       
+      	<!-- 
+      	<script type="text/javascript">
+			/**
+			 *	使用ajax返回选择的数据
+			 */
+			$(document).ready(function(){
+				$(".menu_select").change(function(){
+					var value = $(this).val();
+					//发送给select方法用户返回数据
+					$.post('__URL__/select',{'type':value},function(data){
+						$(".adminlist").html('').html(data);
+					});
+					//分页
+					$.post('__URL__/page',{'type':value},function(data){
+						$(".page_p1").html('').html(data);
+					})
+				});
+			});			
+		</script>
+		 -->
+		 
+	<!-- 给每一行加上区别的特效 -->
+	<script type="text/javascript">
+			$(".focus_table_tr").hover(
+					function(){
+						$(this).addClass('focus_tr');
+					},
+					function(){
+						$(this).removeClass('focus_tr');
+						}
+					);
+		</script>
+
+	
+		<div class="pagination">
+			<div id="page">
+			每页显示{$Think.config.PAGESIZE}篇&nbsp;|&nbsp;共{$show}
+			</div>
+		</div>		
+	</div>
+</div>
+
+<div id="left">
+	<include file="Manage:left"/>
+</div>
+</body>
+</html>

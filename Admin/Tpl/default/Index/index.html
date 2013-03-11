@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>管理员登陆</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/Css/login.css" />
+</head>
+<body>
+<div class="login_top">
+</div>
+
+<div class="login_main">
+	<h2>管&nbsp;理&nbsp员&nbsp登&nbsp陆<img src="__PUBLIC__/Admin/images/user.png" /></h2>
+	<form action="__URL__/check" class="login_form" method="post">
+		<span class="user">用户名:</span><input type="text" value="" name="username" class="username"/>
+		<br/><br/>
+		<span class="pass">密码:</span><input type="password" name="password" value="" class="password"/>
+		<br/><br/>
+		<span class="verify">验证码:</span><input type="text" value="" class="verify1 v1" name="verify" size=6/><img class="ver1" src="__URL__/verify" alt="点击刷新验证码" onclick="this.src=this.src+'?'+Math.random();"/>
+		<br/><br/>
+		<div class="log_margin">
+			<input type="submit" value="登陆" name="login" class="login_sub"/>
+			<input type="reset" value="重置" name="reset" class="login_res"/>
+		</div>
+	</form>
+</div>
+</body>
+</html>
