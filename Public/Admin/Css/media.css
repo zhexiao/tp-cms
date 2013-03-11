@@ -1,0 +1,15 @@
+#publish_video_bg{position:relative;left:20px;width:800px;height:490px;margin-top:10px;border-radius:10px;background:none repeat scroll 0 0 white;border:1px solid #DFDFDF;}
+#publish_video{padding:22px 28px;width:666px;}
+.media_textarea{font-size:18px;line-height:30px;border-width:1px;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;box-shadow:inset 0 0 5px #dfdfdf;background:white;padding:7px;width:550px;height:30px;margin-left:88px;height:200px;}
+.publish_title{margin-left:88px;}
+#publish_video h3.pb-section-title{color:#5B6772;font-size:16px;font-weight:normal;margin:30px 0 5px;margin-left:88px;}
+#publish_video h3.pb-section-title span{color:#AAB5C1;font-size:12px;margin-left:5px;}
+.pb-input-text{border:1px solid #BBBBBB;color:#333333;font-size:18px;line-height:30px;outline:medium none;padding:7px;width:550px;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;box-shadow:0 -42px 3px #FFFFFF inset,0 0 3px rgba(0,0,0,0.5) inset;height:30px;margin-left:88px;}
+.pb-input-textarea{width:555px;float:left;margin-top:20px;}
+.blue-button{border:none;background:#2DA5D7 url(../images/clear-bg.$4694.png) repeat-x 0 0;height:36px;border:1px solid #2192C1;font-size:14px;line-height:36px;display:block;padding:0 20px;color:white;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;cursor:pointer;}
+.gray-button{border:none;background:url(../images/gray-button.$3943.png) repeat-x 0 0;height:36px;border:1px solid #ACACAC;font-size:14px;line-height:36px;display:block;padding:0 20px;color:#7E7E7E;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;cursor:pointer;}
+#pb-submit{float:right;height:36px;line-height:36px;margin:20px 15px 20px 10px;}
+#pb-cancel{float:left;margin:20px 10px 20px 88px;height:36px;line-height:36px;}
+#publish_video_bg #error_url{color:red;margin-left:20px;display:none;}
+#add_success{display:none;color:#EB8F00;font-weight:bold;font-size:12px;margin-left:88px;margin-top:10px;}
+#show_video{width:560px;height:250px;position:relative;top:5px;left:88px;display:none;}

@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";body{background:#fff repeat-x;font:12px/1.5 Tahoma,Helvetica,SimSun,sans-serif;color:#666;}
+#wrap{margin:auto;width:1024px;height:auto;text-align:center;overflow:hidden;margin-bottom:10px;}
+.wrap_middle{background:none repeat scroll 0 0 #F7F7F7;border:1px solid #CCCCCC;line-height:24px;margin-left:3px;margin-right:3px;margin-top:10px;padding:5px;text-align:left;overflow:hidden;text-indent:15px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+.text{color:black;}
+.time,.name{float:right;margin-top:20px;margin-left:20px;}
+.del{float:left;margin-top:50px;}
+.comment_a{font-size:16px !important;}
+.comment_a:hover{color:#21759B !important;}

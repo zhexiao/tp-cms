@@ -1,0 +1,67 @@
+*{padding:0;margin:0;word-break:break-all;}
+ol,ul{list-style-type:none;}
+body{background:#fff repeat-x;font:12px/1.5 Tahoma,Helvetica,SimSun,sans-serif;color:#666;}
+a{text-decoration:none;}
+img{border:0px;}
+/*迷你导航*/
+#minibg{margin:auto;width:1024px;height:28px;text-align:center;overflow:hidden;}
+#mini{margin:auto;}
+#dlt{float:left;width:280px;padding-top:3px;text-align:left;display:inline;}
+/*登录条*/
+#notice{float:left;width:300px;height:24px;line-height:24px;text-align:left;display:inline-block;}
+#mini2{float:right;line-height:24px;display:inline;}
+#mini2 a{color:#000;padding:0 3px;}
+/*顶部*/
+#head{margin:auto;background:url(../images/atop.jpg) no-repeat center top;width:1024px;height:100px;text-align:center;overflow:hidden;}
+#marquee a{color:black;}
+#marquee a:hover{color:blue;}
+/*导航菜单*/
+#menu_top_nav{width:1024px;margin:auto;}
+.top_nav_ul{background:#f3f3f3;height:26px;line-height:26px;border-top-color:white;border-bottom-color:#DFDFDF;padding:8px;-moz-border-radius:5px;-webkit-border-radius:5px;border-bottom:1px solid #DFDFDF;border-spacing:0;background-image:-webkit-linear-gradient(top,#f9f9f9,#ececec);background-image:linear-gradient(top,#f9f9f9,#ececec);}
+.top_nav_ul li{display:inline-block;float:left;margin-left:10px;}
+#menu_top_nav .top_nav_ul li a{text-decoration:none;padding:5px;font-size:14px;color:#21759B;font-weight:bold;}
+#menu_top_nav .top_nav_ul li a:hover{color:blue;}
+/*当前位置*/
+#positionbg{margin:auto;background:url(../images/bg2010.gif) no-repeat 2px 11px;width:1024px;height:38px;text-align:left;overflow:hidden;}
+#position{float:left;height:38px;line-height:38px;padding-left:25px;color:black}
+#position a{color:black;}
+#position a:hover{text-decoration:underline;}
+#content{width:1024px;margin:auto;margin-top:5px;margin-bottom:10px;}
+#middle_content{width:764px;float:left;}
+/*幻灯片*/
+#menu_img_slide{width:364px;height:280px;float:left;margin-bottom:5px;position:relative;}
+/*热点内容*/
+#menu_hot_content{float:right;height:310px;background:url(../images/hot_bg.gif) no-repeat;width:373px;padding-top:10px;text-align:center;overflow:hidden;}
+.HotTitle{font:18px "黑体",arial;height:26px;text-align:center;margin-top:10px;}
+.HotTitle a{color:black;}
+.HotTitle a:hover{text-decoration:underline;color:blue;}
+#menu_hot_content .HotText{text-align:left;text-indent:2em;margin-bottom:5px;}
+.fengexian{background:none repeat scroll 0 0 transparent;border-bottom:1px #D4D4D4;border-style:dashed;border-top:1px white;border-width:1px 0;outline:0 none;overflow:hidden;padding:4px 7px 2px;word-wrap:break-word;}
+.hot_content_ul{text-align:left;font-size:14px;margin-top:1px;}
+.hot_content_li{background:url("../images/bg2010.gif") no-repeat scroll -6px -547px transparent;height:25px;margin-left:5px;line-height:25px;padding-left:10px;}
+.hot_content_li a{padding-left:10px;color:black;}
+.hot_content_li a:hover{color:blue;}
+/*图文内容*/
+#menu_img_content{position:relative;width:762px;height:220px;border:1px solid #D4D4D4;clear:both;}
+.img_content_title{background:url("../images/bg2010.gif") repeat-x scroll 0 -742px transparent;border-bottom:1px solid #D4D4D4;color:#333333;font-size:14px;font-weight:bold;padding:6px 10px;}
+/* 中间内容 */
+.menu_middle_content_left{width:375px;height:280px;border:1px solid #D4D4D4;margin-bottom:5px;margin-top:5px;float:left;}
+.menu_middle_content_right{width:375px;height:280px;margin-bottom:5px;margin-top:5px;border:1px solid #D4D4D4;float:right;margin-left:10px;}
+.middle_content_title{background:url("../images/bg2010.gif") repeat-x scroll 0 -742px transparent;height:27px;line-height:27px;padding:5px 10px 2px; 10px;border-bottom:1px solid #D4D4D4;text-align:left;overflow:hidden;}
+.middle_content_title a{font-weight:bold;color:black;text-decoration:none;font-family:"Microsoft YaHei",Segoe UI,Tahoma,Arial,Verdana,sans-serif;}
+.middle_content_title a:hover{color:blue;}
+.middle_content_li{margin-top:5px;}
+.middle_content_li a{font-size:14px;}
+.title_more{float:right;color: #015FB6 !important;}
+.title_more:hover{text-decoration:underline !important;}
+/* 右侧 内容*/
+#menu_side_bar{width:250px;height:auto;float:right;}
+.side_bar_warp{height:308px;border:1px solid #d4d4d4;margin-bottom:10px;}
+/*友情链接*/
+#FriendUrl{clear:both;margin-top:5px;width:1024px;border:1px solid #d4d4d4;text-align:left;overflow:hidden;margin:auto}
+.FriendUrlTitle{background:url(../images/bg2010.gif) repeat-x 0 -742px;padding:6px 10px;border-bottom:1px solid #d4d4d4;font-size:14px;color:#333;font-weight:bold;text-align:left;}
+.url_li{padding:10px;float:left;}
+.url_li a{color:black;}
+.url_li a:hover{color:blue;}
+#footer{border-top:1px solid #d4d4d4;width:1024px;margin:auto;height:auto;overflow:hidden;margin-top:10px;text-align:center;}
+.copyright{margin-top:10px;margin-bottom:10px;}
